@@ -1,7 +1,7 @@
 #include "kinematics.h"
 #include <iostream>
 #include <string>
-
+using namespace std;
 
 int main()
 {	
@@ -13,7 +13,16 @@ int main()
 	
 	while (true) {
 		 printf("ROBOT X PROGRAM V1.0 ALPHA");
+		 printf("Please insert cordidents: x, y, z, thetha, some more stuff:");
 		 
+		
+		 while (true) {
+
+
+
+		 }
+
+
 
 
 
