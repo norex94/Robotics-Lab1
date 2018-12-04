@@ -49,7 +49,6 @@
 #define LEFT_STEPS 1536
 #define GRIPPER_STEPS 375
 
-
 // Public Data Structures
 	struct Taskspace
 	{
