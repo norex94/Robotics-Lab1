@@ -53,18 +53,19 @@
 	struct Taskspace
 	{
 		double x, y, z, p, r, g;
-		
+		~Taskspace() { }
 	}; typedef struct Taskspace Taskspace;
 
 	struct Jointspace
 	{
 		double t[7];
+		~Jointspace() {}
 	}; typedef struct Jointspace Jointspace;
 
 	struct Registerspace
 	{
 		int r[9];
-		
+		~Registerspace() {}
 	}; typedef struct Registerspace Registerspace;
 
 	struct Pose

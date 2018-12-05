@@ -1,98 +1,68 @@
 #include "kinematics.h"
 #include <stdio.h>
 
-void askForSteps(Registerspace & delta)
-{
-	printf("Please insert steps: \n");
-	printf("Base, Shoulder, Elbow, Right Wrist, Left Wrist, Grip: ");
-	scanf("%u", & delta.r[0]);
-	scanf(", ");
-	scanf("%u", & delta.r[1]);
-	scanf(", ");
-	scanf("%u", & delta.r[2]);
-	scanf(", ");
-	scanf("%u", & delta.r[3]);
-	scanf(", ");
-	scanf("%u", & delta.r[4]);
-	scanf(", ");
-	scanf("%u", & delta.r[5]);
-	scanf(", ");
-	scanf("%u", & delta.r[6]);
 
-}
+
 
 
 
 int main()
 {
-	char input;
-	bool run = true;
 	Microbot robot;				// Local variable of the microbot class
-	Taskspace home;
 
-	int spe = 236;				// Motor speed; should not be higher than 240
-	Registerspace RegCurrent{ 0,0,0,0,0,0,0,0,0 };
-	Jointspace JointCurrent{ 0,0,0,0,0,0,0 };
-	Taskspace TaskCurrent{ 1,1,1,0,0,0 };
-	Registerspace RegNext{ 0,0,0,0,0,0,0,0,0 };
-	Jointspace JointNext{ 0,0,0,0,0,0,0 };
+    //Registerspace delta;		// Local variable for input of motor steps
+    int spe=230;				// Motor speed; should not be higher than 240
+	Registerspace Steps{0,0,0,0,0,0,0,0,0};
+	Jointspace JointCurrent{0,0,0,0,0,0,0};
+	Taskspace TaskCurrent{ 127,0,0,-1.5707,0,0 };
+	Jointspace JointNext{0,0,0,0,0,0,0};
 	Taskspace TaskNext{ 1,1,1,0,0,0 };
+	
+	robot.InverseKinematics(TaskCurrent, JointCurrent);
 
 	
-	while (run) {
-
-
-		//Registerspace delta;		// Local variable for input of motor steps
-		
-		//robot.JointToRegister(JointCurrent, RegCurrent);
-
-
-
-		printf("TaskCurr %lf \n", TaskCurrent.x);
-		printf("TaskCurr %lf \n", TaskCurrent.y);
-		printf("TaskCurr %lf \n", TaskCurrent.z);
-		printf("TaskCurr %lf \n", TaskCurrent.p);
-		printf("TaskCurr %lf \n", TaskCurrent.r);
-		printf("TaskCurr %lf \n", TaskCurrent.g);
-		printf("Joint %lf \n", JointCurrent.t[0]);
-		printf("Joint %lf \n", JointCurrent.t[1]);
-		printf("Joint %lf \n", JointCurrent.t[2]);
-		printf("Joint %lf \n", JointCurrent.t[3]);
-		printf("Joint %lf \n", JointCurrent.t[4]);
-		printf("Joint %lf \n", JointCurrent.t[5]);
-		printf("Joint %lf \n", JointCurrent.t[6]);
-		robot.InverseKinematics(TaskCurrent, JointCurrent);
-
-		printf("Joint %lf \n", JointCurrent.t[0]);
-		printf("Joint %lf \n", JointCurrent.t[1]);
-		printf("Joint %lf \n", JointCurrent.t[2]);
-		printf("Joint %lf \n", JointCurrent.t[3]);
-		printf("Joint %lf \n", JointCurrent.t[4]);
-		printf("Joint %lf \n", JointCurrent.t[5]);
-		printf("Joint %lf \n", JointCurrent.t[6]);
-		robot.ForwardKinematics(JointCurrent, TaskCurrent);
-		printf("TaskCurr %lf \n", TaskCurrent.x);
-		printf("TaskCurr %lf \n", TaskCurrent.y);
-		printf("TaskCurr %lf \n", TaskCurrent.z);
-		printf("TaskCurr %lf \n", TaskCurrent.p);
-		printf("TaskCurr %lf \n", TaskCurrent.r);
-		printf("TaskCurr %lf \n", TaskCurrent.g);
-
-		//printf("JointCurr \n", JointCurrent.t);
-
-		printf("Do you want to continue? y/n: \n");
-		scanf("%c", & input);
-		if (input == 'n') {
-			run = false;
+	while (1) {
+		printf("Please insert steps: \n");
+		printf("X");
+		scanf("%lf", &TaskNext.x);
+		scanf(", ");
+		printf("Y");
+		scanf("%lf", &TaskNext.y);
+		scanf(", ");
+		printf("Z");
+		scanf("%lf", &TaskNext.z);
+		scanf(", ");
+		printf("P");
+		scanf("%lf", &TaskNext.p);
+		scanf(", ");
+		printf("R");
+		scanf("%lf", &TaskNext.r);
+		scanf(", ");
+		printf("G");
+		scanf("%lf", &TaskNext.g);
+		TaskNext.p = TaskNext.p*PI / 180;
+		TaskNext.r = TaskNext.r*PI / 180;
+		TaskNext.y = -TaskNext.y;
+		robot.InverseKinematics(TaskNext, JointNext);
+		for (int i = 1; i < 6; i++)
+		{
+			JointNext.t[i] = JointCurrent.t[i] - JointNext.t[i];
+			JointCurrent.t[i] = JointCurrent.t[i] - JointNext.t[i];
 		}
-		if (input == 'y') {
-			run = true;
-		}
+		robot.JointToRegister(JointNext, Steps);
+		robot.SendStep(spe, Steps);
+
+
+
+
 	}
+	
+	
+
+
+
 
 }
-
-
 
 
 
