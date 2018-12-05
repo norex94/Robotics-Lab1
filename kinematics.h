@@ -52,7 +52,8 @@
 // Public Data Structures
 	struct Taskspace
 	{
-		double x,y,z,p,r,g;
+		double x, y, z, p, r, g;
+		
 	}; typedef struct Taskspace Taskspace;
 
 	struct Jointspace
@@ -63,6 +64,7 @@
 	struct Registerspace
 	{
 		int r[9];
+		
 	}; typedef struct Registerspace Registerspace;
 
 	struct Pose
@@ -101,11 +103,9 @@ public:
 	int SendRead(Registerspace &read);
 	int SendSet(int speed);
     int SendReset();
-
 	void SetTaskspace(Taskspace &t);
-
-	void SetJointspace(Jointspace j);
-	void SetRegisterspace(Registerspace r);
+	void SetJointspace(Jointspace &j);
+	void SetRegisterspace(Registerspace &r);
 	int InverseKinematics(Taskspace t, Jointspace &j);
 	int ForwardKinematics(Jointspace j, Taskspace &t);
 	int JointToRegister(Jointspace j, Registerspace &r);
@@ -126,6 +126,6 @@ private:
 	int ROUND(double);
 
 // Private Kinematic Member Functions
-
+	
 
 };
