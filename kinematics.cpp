@@ -24,35 +24,33 @@ void Microbot::SetRegisterspace(Registerspace &r)
 
 int Microbot::InverseKinematics(Taskspace t, Jointspace & j)
 {
-	j.t[1] = atan2(t.y, t.x);
-	double RR = sqrt(t.x * t.x + t.y * t.y);
-	j.t[5] = t.p + t.r + R1 * j.t[1];		// kanski breyta gildi r1
-	j.t[4] = t.p - t.r - R1 * j.t[1];		// kanski breyta gildi r1
+	j.t[0] = atan2(t.y, t.x); //Joint1
+	double RR = sqrt(pow(t.x, 2) + pow(t.y, 2));
+
+
+	j.t[4] = (t.p*(PI/180)) + (t.r*(PI/180)) + (R1 * j.t[0]); //Joint 5
+	j.t[3] = (t.p*(PI/180)) - (t.r*(PI/180)) - (R1 * j.t[0]);
 	double R0 = RR - LL * cos(t.p);
 	double Z0 = t.z - LL * sin(t.p) - H;
-	double beta = atan2(Z0, R0);
-	//	printf("   %lf", beta);
-	double under = ((R0 * R0) + (Z0 * Z0));
-	//	printf("   %lf", under);
-	//	printf("  %lf", (4.0 * L * L) / under);
-	double thing = sqrt((4.0 * L * L) / (under)-1.0);
-	//	printf("   %lf", thing);
-	double alpha = atan(thing);
-	//	printf("   %lf", alpha);
-	j.t[2] = beta + alpha;
-	j.t[3] = beta - alpha;
-	j.t[6] = t.g;
+
+	double beta = atan(Z0 / R0);
+	double alpha = atan(sqrt(((4*pow(L, 2)) / (pow(R0, 2) + pow(Z0, 2))) - 1));
+	j.t[1] = alpha + beta;
+	j.t[2] = beta - alpha;
 	return 0;
 }
 
 int Microbot::ForwardKinematics(Jointspace j, Taskspace & t)
 {
-	t.p = (j.t[5] + j.t[4]) / 2;
-	t.r = (j.t[5] - j.t[4]) / 2;
-	double RR = L * cos(j.t[2]) + L * cos(j.t[3]) + LL * cos(t.p);
-	t.x = RR * cos(j.t[1]);
-	t.y = RR * sin(j.t[1]);
-	t.z = H + L * sin(j.t[2]) + L * sin(j.t[3]) + LL * sin(t.p);
+
+	t.p = ((j.t[4] / (PI*180)) + (j.t[3] / (PI*180))) / 2;
+	t.r = ((j.t[4] / (PI*180)) - (j.t[3] / (PI*180))) / 2;
+
+	double RR = (L * cos(j.t[1])) + (L * cos(j.t[2])) + (LL * cos(t.p));
+	t.x = RR * cos(j.t[0]);
+	t.y = RR * sin(j.t[0]);
+	t.z = H + (L * sin(j.t[1])) + (L * sin(j.t[2])) + (LL * sin(t.p));
+
 	return 0;
 }
 
@@ -68,12 +66,11 @@ int Microbot::JointToRegister(Jointspace j, Registerspace & r)
 
 int Microbot::RegisterToJoint(Registerspace r, Jointspace & j)
 {
-	r.r[1] = (int)(j.t[1] * 1125);
-	r.r[2] = (int)(j.t[2] * 1125);
-	r.r[3] = (int)(j.t[3] * 661.2);
-	r.r[4] = (int)(j.t[4] * 241);
-	r.r[5] = (int)(j.t[5] * 241);
-	r.r[6] = (int)(j.t[6] * 14.6 + r.r[3]);
+	j.t[1] = (r.r[1] * (2 * PI)) / 7072;
+	j.t[2] = (r.r[2] * (2 * PI)) / 7072;
+	j.t[3] = (r.r[3] * (2 * PI)) / 4158;
+	j.t[4] = (r.r[4] * (2 * PI)) / 1536;
+	j.t[5] = (r.r[5] * (2 * PI)) / 1536;
 	return 0;
 }
 
