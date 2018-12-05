@@ -3,17 +3,18 @@
 #include <string>
 using namespace std;
 
+
 int main()
 {	
 	Microbot robot;				// Local variable of the microbot class
     Registerspace delta;		// Local variable for input of motor steps
     int spe=200;				// Motor speed; should not be higher than 240
 
-
+	
 	
 	while (true) {
 		 printf("ROBOT X PROGRAM V1.0 ALPHA");
-		 printf("Please insert cordidents: x, y, z, thetha, some more stuff:");
+		 printf("Please insert cordidents: x, y, z, theta, some more stuff:");
 		 
 		
 		 while (true) {
