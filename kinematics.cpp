@@ -26,10 +26,13 @@ int Microbot::InverseKinematics(Taskspace t, Jointspace & j)
 {
 	j.t[0] = atan2(t.y, t.x); //Joint1
 	double RR = sqrt(pow(t.x, 2) + pow(t.y, 2));
-	j.t[4] = t.p*PI/180 + t.r*PI/180 + (R1 * j.t[0]); //Joint 5
-	j.t[3] = t.p*PI/180 - t.r*PI/180 - (R1*j.t[0]);
-	double R0 = RR - LL * cos(t.p*PI/180);
-	double Z0 = t.z - LL * sin(t.p*PI/180) - H;
+
+
+	j.t[4] = (t.p*(PI/180)) + (t.r*(PI/180)) + (R1 * j.t[0]); //Joint 5
+	j.t[3] = (t.p*(PI/180)) - (t.r*(PI/180)) - (R1 * j.t[0]);
+	double R0 = RR - LL * cos(t.p);
+	double Z0 = t.z - LL * sin(t.p) - H;
+
 	double beta = atan(Z0 / R0);
 	double alpha = atan(sqrt(((4*pow(L, 2)) / (pow(R0, 2) + pow(Z0, 2))) - 1));
 	j.t[1] = alpha + beta;
@@ -39,12 +42,15 @@ int Microbot::InverseKinematics(Taskspace t, Jointspace & j)
 
 int Microbot::ForwardKinematics(Jointspace j, Taskspace & t)
 {
-	t.p = (j.t[4]*180/PI + j.t[3] * 180 / PI) / 2;
-	t.r = (j.t[4] * 180 / PI - j.t[3] * 180 / PI) / 2;
+
+	t.p = ((j.t[4] / (PI*180)) + (j.t[3] / (PI*180))) / 2;
+	t.r = ((j.t[4] / (PI*180)) - (j.t[3] / (PI*180))) / 2;
+
 	double RR = (L * cos(j.t[1])) + (L * cos(j.t[2])) + (LL * cos(t.p));
 	t.x = RR * cos(j.t[0]);
 	t.y = RR * sin(j.t[0]);
 	t.z = H + (L * sin(j.t[1])) + (L * sin(j.t[2])) + (LL * sin(t.p));
+
 	return 0;
 }
 
@@ -70,5 +76,6 @@ int Microbot::RegisterToJoint(Registerspace r, Jointspace & j)
 
 int Microbot::SetDelta(Registerspace start, Registerspace finish)
 {
+
 	return 0;
 }

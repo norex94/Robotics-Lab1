@@ -1,10 +1,32 @@
 #include "kinematics.h"
+#include <stdio.h>
+
+void askForSteps(Registerspace & delta)
+{
+	printf("Please insert steps: \n");
+	printf("Base, Shoulder, Elbow, Right Wrist, Left Wrist, Grip: ");
+	scanf("%u", & delta.r[0]);
+	scanf(", ");
+	scanf("%u", & delta.r[1]);
+	scanf(", ");
+	scanf("%u", & delta.r[2]);
+	scanf(", ");
+	scanf("%u", & delta.r[3]);
+	scanf(", ");
+	scanf("%u", & delta.r[4]);
+	scanf(", ");
+	scanf("%u", & delta.r[5]);
+	scanf(", ");
+	scanf("%u", & delta.r[6]);
+
+}
 
 
 
 int main()
-{	
+{
 	Microbot robot;				// Local variable of the microbot class
+
     //Registerspace delta;		// Local variable for input of motor steps
     int spe=236;				// Motor speed; should not be higher than 240
 	Registerspace RegCurrent{0,0,0,0,0,0,0,0,0};
@@ -15,6 +37,7 @@ int main()
 	Taskspace TaskNext{ 1,1,1,0,0,0 };
 	
 	//robot.JointToRegister(JointCurrent, RegCurrent);
+
 
 
 	printf("TaskCurr %lf \n", TaskCurrent.x);
