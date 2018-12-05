@@ -22,40 +22,64 @@ void askForSteps(Registerspace & delta)
 }
 
 
+
 int main()
 {
 	Microbot robot;				// Local variable of the microbot class
-	Registerspace delta{0,0,0,0,0,0,0,0,0};		// Local variable for input of motor steps
 
+    //Registerspace delta;		// Local variable for input of motor steps
     int spe=236;				// Motor speed; should not be higher than 240
-	Registerspace RegCurrent;	// Þrepin sem mótorar eru í núna.
-	Jointspace JointCurrent;	// Radianar á hverju samskeyti núna.
-	Taskspace TaskCurrent;		// Hnit x,y,z,p,r,g --->  p = pitch, r = roll, g = grip
-	//Registerspace RegNext;		// Þrep sem svara til næstu staðsetningu arms
-	//Jointspace JointNext;		// Radianar á hverju samskeyti í næstu staðsetningu
-	Taskspace TaskNext;			// Hnit á næstu staðsetningu.
-	robot.SetTaskspace(TaskNext);	// segja róbótanum hnitin á næstu staðsetningu.
-	TaskCurrent.x = 0;				// núllstilla þessa staðsetningu sem á að vera "heima" staðsetningin.
-	TaskCurrent.y = 0;
-	TaskCurrent.z = 0;
-	TaskCurrent.p = 0;
-	TaskCurrent.r = 0;
-	TaskCurrent.g = 0;
+	Registerspace RegCurrent{0,0,0,0,0,0,0,0,0};
+	Jointspace JointCurrent{0,0,0,0,0,0,0};
+	Taskspace TaskCurrent{ 1,1,1,0,0,0 };
+	Registerspace RegNext{ 0,0,0,0,0,0,0,0,0 };
+	Jointspace JointNext{0,0,0,0,0,0,0};
+	Taskspace TaskNext{ 1,1,1,0,0,0 };
+	
+	//robot.JointToRegister(JointCurrent, RegCurrent);
 
-	robot.InverseKinematics(TaskCurrent, JointCurrent);		// Tökum hnitin á núverandi staðsetningu og fáum út radiana á samskeytum
-	robot.JointToRegister(JointCurrent, RegCurrent);		// Tökum þessa radíana og breytum þeim í steps fyrir hvern mótor
 
-	askForSteps(delta);										// Biðja um þrep
-	robot.SendStep(spe, delta);								// Senda þrepin 
-		
-		//printf("c",TaskCurrent);
 
+	printf("TaskCurr %lf \n", TaskCurrent.x);
+	printf("TaskCurr %lf \n", TaskCurrent.y);
+	printf("TaskCurr %lf \n", TaskCurrent.z);
+	printf("TaskCurr %lf \n", TaskCurrent.p);
+	printf("TaskCurr %lf \n", TaskCurrent.r);
+	printf("TaskCurr %lf \n", TaskCurrent.g);
+	printf("Joint %lf \n", JointCurrent.t[0]);
+	printf("Joint %lf \n", JointCurrent.t[1]);
+	printf("Joint %lf \n", JointCurrent.t[2]);
+	printf("Joint %lf \n", JointCurrent.t[3]);
+	printf("Joint %lf \n", JointCurrent.t[4]);
+	printf("Joint %lf \n", JointCurrent.t[5]);
+	printf("Joint %lf \n", JointCurrent.t[6]);
+	robot.InverseKinematics(TaskCurrent, JointCurrent);
+	
+	printf("Joint %lf \n", JointCurrent.t[0]);
+	printf("Joint %lf \n", JointCurrent.t[1]);
+	printf("Joint %lf \n", JointCurrent.t[2]);
+	printf("Joint %lf \n", JointCurrent.t[3]);
+	printf("Joint %lf \n", JointCurrent.t[4]);
+	printf("Joint %lf \n", JointCurrent.t[5]);
+	printf("Joint %lf \n", JointCurrent.t[6]);
+	robot.ForwardKinematics(JointCurrent, TaskCurrent);
+	printf("TaskCurr %lf \n", TaskCurrent.x);
+	printf("TaskCurr %lf \n", TaskCurrent.y);
+	printf("TaskCurr %lf \n", TaskCurrent.z);
+	printf("TaskCurr %lf \n", TaskCurrent.p);
+	printf("TaskCurr %lf \n", TaskCurrent.r);
+	printf("TaskCurr %lf \n", TaskCurrent.g);
+
+	//printf("JointCurr \n", JointCurrent.t);
 	
 
 
 
-	
-	
+
+}
+
+
+
 
 
 
@@ -66,10 +90,9 @@ int main()
 	delta.r[6]=0;
 	delta.r[5]=0;
 	delta.r[4]=0;
-    delta.r[3]=0;
-	delta.r[2]=0;	
-    delta.r[1]=-500;
+	delta.r[3]=0;
+	delta.r[2]=0;
+	delta.r[1]=-500;
 
 	robot.SendStep(spe, delta);	// Send instruction to the microbot
 */
-}
