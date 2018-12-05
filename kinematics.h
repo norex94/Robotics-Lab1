@@ -28,7 +28,7 @@
 #define WRIST_HITS_TABLE -10
 #define FINGER_HITS_BASE -11
 #define GRIPPER_WIDTH -12
-#define	LL 96.5
+#define	LL 85
 #define L 177.8
 #define H 195
 #define R1 0.0
