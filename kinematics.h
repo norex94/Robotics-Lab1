@@ -30,7 +30,9 @@
 #define GRIPPER_WIDTH -12
 #define	LL 96.5
 #define L 177.8
+
 #define H 195
+
 #define R1 0.0
 #define HAND_WIDTH 1.5
 #define WRIST_WIDTH 0.6
@@ -101,7 +103,9 @@ public:
 	int SendRead(Registerspace &read);
 	int SendSet(int speed);
     int SendReset();
+
 	void SetTaskspace(Taskspace &t);
+
 	void SetJointspace(Jointspace j);
 	void SetRegisterspace(Registerspace r);
 	int InverseKinematics(Taskspace t, Jointspace &j);
@@ -124,6 +128,6 @@ private:
 	int ROUND(double);
 
 // Private Kinematic Member Functions
-	
+
 
 };

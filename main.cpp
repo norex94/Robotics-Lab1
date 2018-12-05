@@ -1,9 +1,11 @@
 #include "kinematics.h"
 
+
 int main()
 {	
 	Microbot robot;				// Local variable of the microbot class
     Registerspace delta;		// Local variable for input of motor steps
+
     int spe=236;				// Motor speed; should not be higher than 240
 	Registerspace RegCurrent;
 	Jointspace JointCurrent;
@@ -29,6 +31,7 @@ int main()
 		printf("Settu inn drasl \n");
 		scanf("lf", TaskNext.x);
 		//printf("c",TaskCurrent);
+
 
 	}
 
