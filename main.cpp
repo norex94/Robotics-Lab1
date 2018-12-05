@@ -31,7 +31,7 @@ int main()
     int spe=236;				// Motor speed; should not be higher than 240
 	Registerspace RegCurrent{0,0,0,0,0,0,0,0,0};
 	Jointspace JointCurrent{0,0,0,0,0,0,0};
-	Taskspace TaskCurrent{ 1,1,1,0,0,0 };
+	Taskspace TaskCurrent{ 127,0,0,-1.5707,0,0 };
 	Registerspace RegNext{ 0,0,0,0,0,0,0,0,0 };
 	Jointspace JointNext{0,0,0,0,0,0,0};
 	Taskspace TaskNext{ 1,1,1,0,0,0 };
