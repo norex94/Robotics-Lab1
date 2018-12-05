@@ -17,7 +17,32 @@ Microbot::Microbot(){
 	
 	port.Open(1,9600);
 
-};
+}
+Microbot::Microbot(Taskspace home)
+{
+}
+int Microbot::MoveTo(Taskspace & t)
+{
+	return 0;
+}
+int Microbot::Error(int)
+{
+	return 0;
+}
+int Microbot::SetSpeed(int)
+{
+	return 0;
+}
+void Microbot::CurrentPosition(Taskspace & t)
+{
+}
+void Microbot::CurrentPosition(Jointspace & j)
+{
+}
+void Microbot::CurrentPosition(Registerspace & r)
+{
+}
+;
 
 int Microbot::SendStep(int speed, Registerspace del)
 {
