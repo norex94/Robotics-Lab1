@@ -10,6 +10,8 @@
 		InverseKinematics(t,j).
 
 */
+#define ELBOW_ANGLE_EXCEEDED -4
+#define PITCH_ANGLE_EXCEEDED -5
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,8 +21,6 @@
 #define OUT_OF_WORKSPACE -1
 #define BASE_ANGLE_EXCEEDED -2
 #define SHOULDER_ANGLE_EXCEEDED -3
-#define ELBOW_ANGLE_EXCEEDED -4
-#define PITCH_ANGLE_EXCEEDED -5
 #define ROLL_ANGLE_EXCEEDED -6
 #define FINGER_HITS_BODY -7
 #define WRIST_HITS_BODY -8
@@ -28,9 +28,9 @@
 #define WRIST_HITS_TABLE -10
 #define FINGER_HITS_BASE -11
 #define GRIPPER_WIDTH -12
-#define	LL 3.8
-#define L 7.0
-#define H 7.68
+#define	LL 96.5
+#define L 177.8
+#define H 195
 #define R1 0.0
 #define HAND_WIDTH 1.5
 #define WRIST_WIDTH 0.6
@@ -101,6 +101,14 @@ public:
 	int SendRead(Registerspace &read);
 	int SendSet(int speed);
     int SendReset();
+	void SetTaskspace(Taskspace &t);
+	void SetJointspace(Jointspace j);
+	void SetRegisterspace(Registerspace r);
+	int InverseKinematics(Taskspace t, Jointspace &j);
+	int ForwardKinematics(Jointspace j, Taskspace &t);
+	int JointToRegister(Jointspace j, Registerspace &r);
+	int RegisterToJoint(Registerspace r, Jointspace &j);
+	int SetDelta(Registerspace start, Registerspace finish);
 
 private:
 	
@@ -116,13 +124,6 @@ private:
 	int ROUND(double);
 
 // Private Kinematic Member Functions
-	void SetTaskspace(Taskspace t);
-	void SetJointspace(Jointspace j);
-	void SetRegisterspace(Registerspace r);
-	int InverseKinematics(Taskspace t, Jointspace &j);
-	int ForwardKinematics(Jointspace j, Taskspace &t);
-	int JointToRegister(Jointspace j, Registerspace &r);
-	int RegisterToJoint(Registerspace r, Jointspace &j);
-	int SetDelta(Registerspace start, Registerspace finish);
+	
 
 };

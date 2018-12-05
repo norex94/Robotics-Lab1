@@ -1,3 +1,15 @@
-﻿  kinematics.cpp
-interface.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
-  microbot.vcxproj -> C:\Users\hjorv\OneDrive\Desktop\C++StartUpCode2018\C++StartUpCode2018\.\Debug\microbot.exe
+﻿  main.cpp
+c:\users\hjorv\onedrive\documents\github\robotics-lab1\main.cpp(26): warning C4474: 'printf' : too many arguments passed for format string
+  c:\users\hjorv\onedrive\documents\github\robotics-lab1\main.cpp(26): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+c:\users\hjorv\onedrive\documents\github\robotics-lab1\main.cpp(27): warning C4474: 'printf' : too many arguments passed for format string
+  c:\users\hjorv\onedrive\documents\github\robotics-lab1\main.cpp(27): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+c:\users\hjorv\onedrive\documents\github\robotics-lab1\main.cpp(28): warning C4474: 'printf' : too many arguments passed for format string
+  c:\users\hjorv\onedrive\documents\github\robotics-lab1\main.cpp(28): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+c:\users\hjorv\onedrive\documents\github\robotics-lab1\main.cpp(30): warning C4474: 'scanf' : too many arguments passed for format string
+  c:\users\hjorv\onedrive\documents\github\robotics-lab1\main.cpp(30): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+c:\users\hjorv\onedrive\documents\github\robotics-lab1\main.cpp(30): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: see declaration of 'scanf'
+c:\users\hjorv\onedrive\documents\github\robotics-lab1\main.cpp(12): warning C4101: 'JointNext': unreferenced local variable
+c:\users\hjorv\onedrive\documents\github\robotics-lab1\main.cpp(6): warning C4101: 'delta': unreferenced local variable
+c:\users\hjorv\onedrive\documents\github\robotics-lab1\main.cpp(11): warning C4101: 'RegNext': unreferenced local variable
+  microbot.vcxproj -> C:\Users\hjorv\OneDrive\Documents\GitHub\Robotics-Lab1\.\Debug\microbot.exe
