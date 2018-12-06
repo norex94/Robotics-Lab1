@@ -19,7 +19,7 @@ int main()
 	bool out = true;
 
 	while (out) {
-		printf("Please insert steps: \n");
+		printf("Please insert coordinates: \n");
 		printf("X: ");
 		scanf("%lf", &TaskNext.x);
 		scanf(", ");
