@@ -1,6 +1,16 @@
 #include "kinematics.h"
 #include <stdio.h>
 
+void moveTo(Jointspace &JointCurrent, Jointspace &JointNext, int spe, Registerspace &Steps, Microbot robot) {
+	
+	for (int i = 1; i < 7; i++)
+	{
+		JointNext.t[i] = JointCurrent.t[i] - JointNext.t[i];
+		JointCurrent.t[i] = JointCurrent.t[i] - JointNext.t[i];
+	}
+	robot.JointToRegister(JointNext, Steps);
+	robot.SendStep(spe, Steps);
+}
 
 int main()
 {
@@ -10,11 +20,11 @@ int main()
     int spe=230;				// Motor speed; should not be higher than 240
 	Registerspace Steps{0,0,0,0,0,0,0,0,0};
 	Jointspace JointCurrent{0,0,0,0,0,0,0};
-	Taskspace TaskCurrent{ 127,0,0,-1.5707,0,0 };
+	Taskspace TaskHome{ 125,0,0,-1.5707,0,0 };
 	Jointspace JointNext{0,0,0,0,0,0,0};
 	Taskspace TaskNext{ 1,1,1,0,0,0 };
 	
-	robot.InverseKinematics(TaskCurrent, JointCurrent);
+	robot.InverseKinematics(TaskHome, JointCurrent);
 	char yes = 0;
 	bool out = true;
 
@@ -40,14 +50,9 @@ int main()
 		TaskNext.p = TaskNext.p*PI / 180;
 		TaskNext.r = TaskNext.r*PI / 180;
 		TaskNext.y = -TaskNext.y;
+		TaskNext.g = -TaskNext.g;
 		robot.InverseKinematics(TaskNext, JointNext);
-		for (int i = 1; i < 6; i++)
-		{
-			JointNext.t[i] = JointCurrent.t[i] - JointNext.t[i];
-			JointCurrent.t[i] = JointCurrent.t[i] - JointNext.t[i];
-		}
-		robot.JointToRegister(JointNext, Steps);
-		robot.SendStep(spe, Steps);
+		moveTo(JointCurrent, JointNext, spe, Steps, robot);
 		printf("Continue? y/n \n");
 		scanf(" %c", &yes);
 		if (yes == 'n')
@@ -56,20 +61,8 @@ int main()
 		}
 		
 	}
-	robot.SendClose(221, 1);
-	TaskNext.x = 125;
-	TaskNext.y = 0;
-	TaskNext.z = 0;
-	TaskNext.p = -90 * PI / 180;
-	TaskNext.r = 0;
-	robot.InverseKinematics(TaskNext, JointNext);
-	for (int i = 1; i < 6; i++)
-	{
-		JointNext.t[i] = JointCurrent.t[i] - JointNext.t[i];
-		JointCurrent.t[i] = JointCurrent.t[i] - JointNext.t[i];
-	}
-	robot.JointToRegister(JointNext, Steps);
-	robot.SendStep(spe, Steps);
+	robot.InverseKinematics(TaskHome, JointNext);
+	moveTo(JointCurrent, JointNext, spe, Steps, robot);
 	printf("Thank you goodbye");
 
 
