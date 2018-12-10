@@ -1,5 +1,10 @@
+
+
+
 #include "kinematics.h"
 #include <stdio.h>
+
+
 
 void moveTo(Jointspace &JointCurrent, Jointspace &JointNext, int spe, Registerspace &Steps, Microbot &robot) {
 	
@@ -14,6 +19,10 @@ void moveTo(Jointspace &JointCurrent, Jointspace &JointNext, int spe, Registersp
 
 int main()
 {
+
+	FILE *fp;
+	fp = fopen("file.txt", "w+");
+
 	Microbot robot;				// Local variable of the microbot class
 
    
@@ -29,30 +38,23 @@ int main()
 	bool out = true;
 
 	while (out) {
-		printf("Please insert coordinates: \n");
-		printf("X: ");
-		scanf("%lf", &TaskNext.x);
-		scanf(", ");
-		printf("Y: ");
-		scanf("%lf", &TaskNext.y);
-		scanf(", ");
-		printf("Z: ");
-		scanf("%lf", &TaskNext.z);
-		scanf(", ");
-		printf("P: ");
-		scanf("%lf", &TaskNext.p);
-		scanf(", ");
-		printf("R: ");
-		scanf("%lf", &TaskNext.r);
-		scanf(", ");
-		printf("G: ");
-		scanf("%lf", &TaskNext.g);
-		TaskNext.p = TaskNext.p*PI / 180;
-		TaskNext.r = TaskNext.r*PI / 180;
-		TaskNext.y = -TaskNext.y;
-		TaskNext.g = -TaskNext.g;
-		robot.InverseKinematics(TaskNext, JointNext);
-		moveTo(JointCurrent, JointNext, spe, Steps, robot);
+		printf("Please move arm: \n");
+		scanf(",");
+		//robot.SendRead(Steps);
+		robot.RegisterToJoint(Steps, JointNext);
+		for (int i = 1; i < 6; i++)
+		{
+			JointNext.t[i] = JointCurrent.t[i] - JointNext.t[i];
+			JointCurrent.t[i] = JointCurrent.t[i] - JointNext.t[i];
+		}
+		robot.ForwardKinematics(JointNext, TaskNext);
+		putc(TaskNext.x, fp);
+		putc(TaskNext.y, fp);
+		putc(TaskNext.z, fp);
+		putc(TaskNext.p, fp);
+		putc(TaskNext.r, fp);
+		putc(TaskNext.g, fp);
+		putc('\n', fp);
 		printf("Continue? y/n \n");
 		scanf(" %c", &yes);
 		if (yes == 'n')
@@ -61,11 +63,10 @@ int main()
 		}
 		
 	}
-	robot.InverseKinematics(TaskHome, JointNext);
-	moveTo(JointCurrent, JointNext, spe, Steps, robot);
+	
 	printf("Thank you goodbye");
 
-
+	fclose(fp);
 }
 
 

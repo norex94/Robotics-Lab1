@@ -58,18 +58,19 @@ int Microbot::JointToRegister(Jointspace j, Registerspace & r)
 	r.r[3] = (int)(j.t[3] * 661.2);
 	r.r[4] = (int)(j.t[4] * 241);
 	r.r[5] = (int)(j.t[5] * 241);
-	r.r[6] = (int)((j.t[6] * 14.6) + r.r[3]);
+	r.r[6] = (int)((j.t[6] * 14.606) + r.r[3]);
 	return 0;
 }
 
 int Microbot::RegisterToJoint(Registerspace r, Jointspace & j)
 {
-	r.r[1] = (int)(j.t[1] * 1125);
-	r.r[2] = (int)(j.t[2] * 1125);
-	r.r[3] = (int)(j.t[3] * 661.2);
-	r.r[4] = (int)(j.t[4] * 241);
-	r.r[5] = (int)(j.t[5] * 241);
-	r.r[6] = (int)((j.t[6] * 14.606) + r.r[3]);
+	r.r[1] = (int)(j.t[1] / 1125);
+	r.r[2] = (int)(j.t[2] / 1125);
+	r.r[3] = (int)(j.t[3] / 661.2);
+	r.r[4] = (int)(j.t[4] / 241);
+	r.r[5] = (int)(j.t[5] / 241);
+	r.r[6] = (int)((j.t[6] - r.r[3]) / 14.6);
+	
 	return 0;
 }
 
