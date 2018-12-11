@@ -18,7 +18,10 @@ void lineTo(Taskspace &Travelling, Taskspace &TaskNext, Taskspace &TaskCurrent, 
 	double b = pow((TaskNext.y - TaskCurrent.y), 2);
 	double c = pow((TaskNext.z - TaskCurrent.z), 2);
 	double distance = sqrt(a + b + c);						// Finna lengd línu á milli byrjunar staðs og enda staðs
-	double numOfIntervals = round((distance / 10) +1 );		// Fjöldi punkta sem reikna á út á leiðinni. 10 allavega einn punktur á hverjum sentimeter
+	double numOfIntervals = round((distance / 20) +1);		// Fjöldi punkta sem reikna á út á leiðinni. 20 allavega einn punktur á hverjum 2 sentimetrum
+	printf("distance: ");
+	printf("%lf", numOfIntervals);
+	printf("\n");
 	for (int i = 0; i < numOfIntervals+1; i++)				// Fyrir hvern punkt er kallað í inverse kinematics og svo í moveTo
 	{
 		Travelling.x = TaskCurrent.x + ((i / numOfIntervals) * (TaskNext.x - TaskCurrent.x));
@@ -26,11 +29,16 @@ void lineTo(Taskspace &Travelling, Taskspace &TaskNext, Taskspace &TaskCurrent, 
 		Travelling.z = TaskCurrent.z + ((i / numOfIntervals) * (TaskNext.z - TaskCurrent.z));
 		Travelling.p = TaskCurrent.p + ((i / numOfIntervals) * (TaskNext.p - TaskCurrent.p));
 		Travelling.r = TaskCurrent.r + ((i / numOfIntervals) * (TaskNext.r - TaskCurrent.r));
+		printf("%lf", Travelling.x);
+		printf("%lf", Travelling.y);
+		printf("%lf", Travelling.z);
+		printf("%lf", Travelling.p);
+		printf("%lf", Travelling.r);
 		robot.InverseKinematics(Travelling, JointNext);
 		moveTo(JointCurrent, JointNext, Speed, Steps, robot);
-		printf("distance: ");
-		printf("%lf", numOfIntervals);
 	}
+	robot.InverseKinematics(TaskNext, JointNext);
+	moveTo(JointCurrent, JointNext, Speed, Steps, robot);
 }
 
 int main()
@@ -42,6 +50,7 @@ int main()
 	Jointspace JointCurrent{0,0,0,0,0,0,0};
 	Taskspace TaskHome{ 125,0,0,-1.5707,0,0 };
 	Jointspace JointNext{0,0,0,0,0,0,0};
+	Jointspace TravellingJ{ 0,0,0,0,0,0,0 };
 	Taskspace TaskNext{ 1,1,1,0,0,0 };
 	Taskspace TaskCurrent{ 1,1,1,0,0,0 };
 	Taskspace Travelling{ 1,1,1,0,0,0 };
