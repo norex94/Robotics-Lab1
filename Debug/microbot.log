@@ -1,26 +1,27 @@
-﻿  main.cpp
-c:\users\admin\documents\github\robotics-lab1\main.cpp(73): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  main.cpp
+c:\users\fundur\desktop\lineto\main.cpp(68): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: see declaration of 'scanf'
-c:\users\admin\documents\github\robotics-lab1\main.cpp(74): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\fundur\desktop\lineto\main.cpp(69): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: see declaration of 'scanf'
-c:\users\admin\documents\github\robotics-lab1\main.cpp(76): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\fundur\desktop\lineto\main.cpp(71): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: see declaration of 'scanf'
-c:\users\admin\documents\github\robotics-lab1\main.cpp(77): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\fundur\desktop\lineto\main.cpp(72): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: see declaration of 'scanf'
-c:\users\admin\documents\github\robotics-lab1\main.cpp(79): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\fundur\desktop\lineto\main.cpp(74): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: see declaration of 'scanf'
-c:\users\admin\documents\github\robotics-lab1\main.cpp(80): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\fundur\desktop\lineto\main.cpp(75): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: see declaration of 'scanf'
-c:\users\admin\documents\github\robotics-lab1\main.cpp(82): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\fundur\desktop\lineto\main.cpp(77): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: see declaration of 'scanf'
-c:\users\admin\documents\github\robotics-lab1\main.cpp(83): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\fundur\desktop\lineto\main.cpp(78): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: see declaration of 'scanf'
-c:\users\admin\documents\github\robotics-lab1\main.cpp(85): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\fundur\desktop\lineto\main.cpp(80): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: see declaration of 'scanf'
-c:\users\admin\documents\github\robotics-lab1\main.cpp(86): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\fundur\desktop\lineto\main.cpp(81): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: see declaration of 'scanf'
-c:\users\admin\documents\github\robotics-lab1\main.cpp(88): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\fundur\desktop\lineto\main.cpp(83): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: see declaration of 'scanf'
-c:\users\admin\documents\github\robotics-lab1\main.cpp(99): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\fundur\desktop\lineto\main.cpp(94): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: see declaration of 'scanf'
-  microbot.vcxproj -> C:\Users\admin\Documents\GitHub\Robotics-Lab1\.\Debug\microbot.exe
+  microbot.vcxproj -> C:\Users\fundur\Desktop\lineTo\.\Debug\microbot.exe

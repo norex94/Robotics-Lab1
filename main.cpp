@@ -39,34 +39,29 @@ void lineTo(Taskspace &Travelling, Taskspace &TaskNext, Taskspace &TaskCurrent, 
 	}
 	robot.InverseKinematics(TaskNext, JointNext);
 	moveTo(JointCurrent, JointNext, Speed, Steps, robot);
+
+	TaskCurrent = TaskNext;
 }
 
 int main()
 {
 	Microbot robot;				// Local variable of the microbot class
 
-    int Speed = 230;				// Motor speed; should not be higher than 240
+    int Speed = 235;				// Motor speed; should not be higher than 240
 	Registerspace Steps{0,0,0,0,0,0,0,0,0};
 	Jointspace JointCurrent{0,0,0,0,0,0,0};
 	Taskspace TaskHome{ 125,0,0,-1.5707,0,0 };
 	Jointspace JointNext{0,0,0,0,0,0,0};
 	Jointspace TravellingJ{ 0,0,0,0,0,0,0 };
 	Taskspace TaskNext{ 1,1,1,0,0,0 };
-	Taskspace TaskCurrent{ 1,1,1,0,0,0 };
-	Taskspace Travelling{ 1,1,1,0,0,0 };
+	Taskspace TaskCurrent{ 125,0,0,-1.5707,0,0 };
+	Taskspace Travelling{ 125,0,0,-1.5707,0,0 };
 	
 	robot.InverseKinematics(TaskHome, JointCurrent);
 	char yes = 0;
 	bool out = true;
 
 	while (out) {
-		TaskCurrent.x = TaskNext.x;
-		TaskCurrent.y = TaskNext.y;
-		TaskCurrent.z = TaskNext.z;
-		TaskCurrent.p = TaskNext.p;
-		TaskCurrent.r = TaskNext.r;
-		TaskCurrent.g = TaskNext.g;
-
 
 		printf("Please insert coordinates: \n");
 		printf("X: ");
@@ -103,8 +98,7 @@ int main()
 		}
 		
 	}
-	robot.InverseKinematics(TaskHome, JointNext);
-	moveTo(JointCurrent, JointNext, Speed, Steps, robot);
+	lineTo(Travelling, TaskHome, TaskCurrent, JointCurrent, JointNext, Speed, Steps, robot);
 	printf("Thank you goodbye");
 
 
