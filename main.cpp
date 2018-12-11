@@ -1,7 +1,7 @@
 #include "kinematics.h"
 #include <stdio.h>
 
-void moveTo(Jointspace &JointCurrent, Jointspace &JointNext, int spe, Registerspace &Steps, Microbot robot) {
+void moveTo(Jointspace &JointCurrent, Jointspace &JointNext, int Speed, Registerspace &Steps, Microbot &robot) {
 	
 	for (int i = 1; i < 7; i++)
 	{
@@ -9,26 +9,56 @@ void moveTo(Jointspace &JointCurrent, Jointspace &JointNext, int spe, Registersp
 		JointCurrent.t[i] = JointCurrent.t[i] - JointNext.t[i];
 	}
 	robot.JointToRegister(JointNext, Steps);
-	robot.SendStep(spe, Steps);
+	robot.SendStep(Speed, Steps);
+}
+
+void lineTo(Taskspace &Travelling, Taskspace &TaskNext, Taskspace &TaskCurrent, Jointspace &JointCurrent, Jointspace &JointNext, int Speed, Registerspace &Steps, Microbot &robot)
+{
+	double a = pow((TaskNext.x - TaskCurrent.x), 2);
+	double b = pow((TaskNext.y - TaskCurrent.y), 2);
+	double c = pow((TaskNext.z - TaskCurrent.z), 2);
+	double distance = sqrt(a + b + c);						// Finna lengd línu á milli byrjunar staðs og enda staðs
+	double numOfIntervals = round((distance / 10) +1 );		// Fjöldi punkta sem reikna á út á leiðinni. 10 allavega einn punktur á hverjum sentimeter
+	for (int i = 0; i < numOfIntervals+1; i++)				// Fyrir hvern punkt er kallað í inverse kinematics og svo í moveTo
+	{
+		Travelling.x = TaskCurrent.x + ((i / numOfIntervals) * (TaskNext.x - TaskCurrent.x));
+		Travelling.y = TaskCurrent.y + ((i / numOfIntervals) * (TaskNext.y - TaskCurrent.y));
+		Travelling.z = TaskCurrent.z + ((i / numOfIntervals) * (TaskNext.z - TaskCurrent.z));
+		Travelling.p = TaskCurrent.p + ((i / numOfIntervals) * (TaskNext.p - TaskCurrent.p));
+		Travelling.r = TaskCurrent.r + ((i / numOfIntervals) * (TaskNext.r - TaskCurrent.r));
+		robot.InverseKinematics(Travelling, JointNext);
+		moveTo(JointCurrent, JointNext, Speed, Steps, robot);
+		printf("distance: ");
+		printf("%lf", numOfIntervals);
+	}
 }
 
 int main()
 {
 	Microbot robot;				// Local variable of the microbot class
 
-   
-    int spe=230;				// Motor speed; should not be higher than 240
+    int Speed = 230;				// Motor speed; should not be higher than 240
 	Registerspace Steps{0,0,0,0,0,0,0,0,0};
 	Jointspace JointCurrent{0,0,0,0,0,0,0};
 	Taskspace TaskHome{ 125,0,0,-1.5707,0,0 };
 	Jointspace JointNext{0,0,0,0,0,0,0};
 	Taskspace TaskNext{ 1,1,1,0,0,0 };
+	Taskspace TaskCurrent{ 1,1,1,0,0,0 };
+	Taskspace Travelling{ 1,1,1,0,0,0 };
 	
 	robot.InverseKinematics(TaskHome, JointCurrent);
 	char yes = 0;
 	bool out = true;
 
 	while (out) {
+		TaskCurrent.x = TaskNext.x;
+		TaskCurrent.y = TaskNext.y;
+		TaskCurrent.z = TaskNext.z;
+		TaskCurrent.p = TaskNext.p;
+		TaskCurrent.r = TaskNext.r;
+		TaskCurrent.g = TaskNext.g;
+
+
 		printf("Please insert coordinates: \n");
 		printf("X: ");
 		scanf("%lf", &TaskNext.x);
@@ -51,8 +81,11 @@ int main()
 		TaskNext.r = TaskNext.r*PI / 180;
 		TaskNext.y = -TaskNext.y;
 		TaskNext.g = -TaskNext.g;
-		robot.InverseKinematics(TaskNext, JointNext);
-		moveTo(JointCurrent, JointNext, spe, Steps, robot);
+
+		lineTo(Travelling, TaskNext, TaskCurrent, JointCurrent, JointNext, Speed, Steps, robot);
+
+		//robot.InverseKinematics(TaskNext, JointNext);
+		//moveTo(JointCurrent, JointNext, Speed, Steps, robot);
 		printf("Continue? y/n \n");
 		scanf(" %c", &yes);
 		if (yes == 'n')
@@ -62,13 +95,8 @@ int main()
 		
 	}
 	robot.InverseKinematics(TaskHome, JointNext);
-	moveTo(JointCurrent, JointNext, spe, Steps, robot);
+	moveTo(JointCurrent, JointNext, Speed, Steps, robot);
 	printf("Thank you goodbye");
 
 
 }
-
-
-
-
-
