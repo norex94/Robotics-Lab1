@@ -21,7 +21,9 @@ int main()
 {
 
 	FILE *fp;
-	fp = fopen("file.txt", "w+");
+	fp = fopen("file.txt", "w");
+	FILE *fp1;
+	fp1 = fopen("file1.txt", "r");
 
 	Microbot robot;				// Local variable of the microbot class
 
@@ -32,38 +34,56 @@ int main()
 	Taskspace TaskHome{ 125,0,0,-1.5707,0,0 };
 	Jointspace JointNext{0,0,0,0,0,0,0};
 	Taskspace TaskNext{ 1,1,1,0,0,0 };
+	Taskspace auka{ 0,0,0,0,0,0 };
 	
 	robot.InverseKinematics(TaskHome, JointCurrent);
+	//robot.InverseKinematics(TaskHome, JointNext);
 	char yes = 0;
 	bool out = true;
 
 	while (out) {
+		
 		printf("Please move arm: \n");
-		scanf(",");
+		//scanf(" %c", &yes);
+		//Sleep(1000);         1 sek seinkun
 		//robot.SendRead(Steps);
 		robot.RegisterToJoint(Steps, JointNext);
 		for (int i = 1; i < 6; i++)
 		{
 			JointNext.t[i] = JointCurrent.t[i] - JointNext.t[i];
-			JointCurrent.t[i] = JointCurrent.t[i] - JointNext.t[i];
+			JointCurrent.t[i] = JointNext.t[i];
 		}
 		robot.ForwardKinematics(JointNext, TaskNext);
-		putc(TaskNext.x, fp);
-		putc(TaskNext.y, fp);
-		putc(TaskNext.z, fp);
-		putc(TaskNext.p, fp);
-		putc(TaskNext.r, fp);
-		putc(TaskNext.g, fp);
-		putc('\n', fp);
+		fprintf(fp, "%lf", TaskNext.x);
+		fprintf(fp, " ");
+		fprintf(fp, "%lf", TaskNext.y);
+		fprintf(fp, " ");
+		fprintf(fp, "%lf", TaskNext.z);
+		fprintf(fp, " ");
+		fprintf(fp, "%lf", TaskNext.p);
+		fprintf(fp, " ");
+		fprintf(fp, "%lf", TaskNext.r);
+		fprintf(fp, " ");
+		fprintf(fp, "%lf \n", TaskNext.g);
 		printf("Continue? y/n \n");
-		scanf(" %c", &yes);
+		//scanf(" %c", &yes);
 		if (yes == 'n')
 		{
 			out = false;
 		}
 		
 	}
-	
+	/*
+	while (!feof(fp1)) {
+		fscanf(fp1, "%lf", &auka.x);
+		fscanf(fp1, "%lf", &auka.y);
+		fscanf(fp1, "%lf", &auka.z);
+		fscanf(fp1, "%lf", &auka.p);
+		fscanf(fp1, "%lf", &auka.r);
+		fscanf(fp1, "%lf \n", &auka.g);
+		printf("%lf %lf %lf %lf \n", auka.x, auka.y, auka.z, auka.p);
+	}
+	*/
 	printf("Thank you goodbye");
 
 	fclose(fp);

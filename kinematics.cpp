@@ -44,10 +44,10 @@ int Microbot::ForwardKinematics(Jointspace j, Taskspace & t)
 {
 	t.p = (j.t[5] + j.t[4]) / 2;
 	t.r = (j.t[5] - j.t[4]) / 2;
-	double RR = L * cos(j.t[2]) + L * cos(j.t[3]) + LL * cos(t.p);
+	double RR = (L * cos(j.t[2])) +( L * cos(j.t[3]) )+ (LL * cos(t.p));
 	t.x = RR * cos(j.t[1]);
 	t.y = RR * sin(j.t[1]);
-	t.z = H + L * sin(j.t[2]) + L * sin(j.t[3]) + LL * sin(t.p);
+	t.z = H +( L * sin(j.t[2])) + (L * sin(j.t[3]) )+ (LL * sin(t.p));
 	return 0;
 }
 
@@ -64,12 +64,12 @@ int Microbot::JointToRegister(Jointspace j, Registerspace & r)
 
 int Microbot::RegisterToJoint(Registerspace r, Jointspace & j)
 {
-	r.r[1] = (int)(j.t[1] / 1125);
-	r.r[2] = (int)(j.t[2] / 1125);
-	r.r[3] = (int)(j.t[3] / 661.2);
-	r.r[4] = (int)(j.t[4] / 241);
-	r.r[5] = (int)(j.t[5] / 241);
-	r.r[6] = (int)((j.t[6] - r.r[3]) / 14.6);
+	j.t[1] = static_cast<double>(r.r[1]) / 1125;
+	j.t[2] = static_cast<double>(r.r[2]) / 1125;
+	j.t[3] = static_cast<double>(r.r[3]) / 661.2;
+	j.t[4] = static_cast<double>(r.r[4]) / 241;
+	j.t[5] = static_cast<double>(r.r[5]) / 241;
+	j.t[6] = static_cast<double>(r.r[6] - r.r[3]) / 14.6;
 	
 	return 0;
 }
