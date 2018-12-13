@@ -1,2 +1,6 @@
-﻿  kinematics.cpp
+﻿  main.cpp
+c:\users\hjorv\onedrive\documents\github\robotics-lab1\main.cpp(24): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(208): note: see declaration of 'fopen'
+c:\users\hjorv\onedrive\documents\github\robotics-lab1\main.cpp(26): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(208): note: see declaration of 'fopen'
   microbot.vcxproj -> C:\Users\hjorv\OneDrive\Documents\GitHub\Robotics-Lab1\.\Debug\microbot.exe

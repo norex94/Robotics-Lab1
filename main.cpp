@@ -41,19 +41,35 @@ int main()
 	char yes = 0;
 	bool out = true;
 
+
+
+	
 	while (out) {
 		
+
+	
 		printf("Please move arm: \n");
 		//scanf(" %c", &yes);
 		//Sleep(1000);         1 sek seinkun
 		//robot.SendRead(Steps);
+		Steps.r[1] = Steps.r[1] - 10;
+		Steps.r[2] = Steps.r[2] - 10;
+		Steps.r[3] = Steps.r[3] - 10;
+		Steps.r[4] = Steps.r[4] - 10;
+		Steps.r[5] = Steps.r[5] + 10;
 		robot.RegisterToJoint(Steps, JointNext);
+		
+		//robot.ForwardKinematics(JointCurrent, TaskNext);
 		for (int i = 1; i < 6; i++)
 		{
-			JointNext.t[i] = JointCurrent.t[i] - JointNext.t[i];
-			JointCurrent.t[i] = JointNext.t[i];
+			//JointNext.t[i] = JointCurrent.t[i] + JointNext.t[i];
+			JointCurrent.t[i] = JointCurrent.t[i] - JointNext.t[i];
+			
 		}
-		robot.ForwardKinematics(JointNext, TaskNext);
+
+		robot.ForwardKinematics(JointCurrent, TaskNext);
+
+
 		fprintf(fp, "%lf", TaskNext.x);
 		fprintf(fp, " ");
 		fprintf(fp, "%lf", TaskNext.y);
@@ -73,7 +89,8 @@ int main()
 		}
 		
 	}
-	/*
+
+/*
 	while (!feof(fp1)) {
 		fscanf(fp1, "%lf", &auka.x);
 		fscanf(fp1, "%lf", &auka.y);
@@ -82,6 +99,7 @@ int main()
 		fscanf(fp1, "%lf", &auka.r);
 		fscanf(fp1, "%lf \n", &auka.g);
 		printf("%lf %lf %lf %lf \n", auka.x, auka.y, auka.z, auka.p);
+	
 	}
 	*/
 	printf("Thank you goodbye");
